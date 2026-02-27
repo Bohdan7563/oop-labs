@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <utility>
+
 using namespace std;
 
 class Account {
@@ -9,26 +11,16 @@ private:
 
 public:
     Account() : Account("None", 0.0) {}
+    Account(string n) : Account(std::move(n), 0.0) {}
+    Account(string n, double b) : name{std::move(n)}, balance{b} {}
+    ~Account() = default;
 
-    Account(string n) : Account(n, 0.0) {}
-
-    Account(string n, double b) : name{n}, balance{b} {}
-
-    ~Account() {}
-
-    void deposit(double amount) {
-        balance += amount;
-    }
-
+    void deposit(double amount) { balance += amount; }
     void withdraw(double amount) {
-        if (amount <= balance) {
-            balance -= amount;
-        }
+        if (amount <= balance) balance -= amount;
+        else cout << "Not enough money" << endl;
     }
-
-    void show() {
-        cout << name << " " << balance << endl;
-    }
+    void show() const { cout << name << " " << balance << endl; }
 };
 
 class Client {
@@ -38,14 +30,9 @@ private:
 
 public:
     Client() : Client("NoName", 18) {}
-
-    Client(string n, int a = 18) : name{n}, age{a} {}
-
-    ~Client() {}
-
-    void show() {
-        cout << name << " " << age << endl;
-    }
+    Client(string n, int a = 18) : name{std::move(n)}, age{a} {}
+    ~Client() = default;
+    void show() const { cout << name << " " << age << endl; }
 };
 
 class Transaction {
@@ -55,14 +42,9 @@ private:
 
 public:
     Transaction() : Transaction(0.0, "none") {}
-
-    Transaction(double a, string t = "none") : amount{a}, type{t} {}
-
-    ~Transaction() {}
-
-    void show() {
-        cout << type << " " << amount << endl;
-    }
+    Transaction(double a, string t = "none") : amount{a}, type{std::move(t)} {}
+    ~Transaction() = default;
+    void show() const { cout << type << " " << amount << endl; }
 };
 
 int main() {
@@ -89,4 +71,3 @@ int main() {
 
     return 0;
 }
-cout << "Done" << endl;
