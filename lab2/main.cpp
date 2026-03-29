@@ -1,30 +1,29 @@
 #include <iostream>
 #include "Account.h"
 #include "Client.h"
+#include "PremiumClient.h"
 #include "Transaction.h"
 
 int main() {
 
+    Client c1("Bohdan", 19);
+    PremiumClient pc("VIP", 25, 1000);
+
     Account a1("Main", 1000);
     Account a2("Second");
 
-    Client c1("Bohdan", 19);
-    Client c2;
-
     Transaction t1(500, "deposit");
-    Transaction t2;
 
     a1.deposit(200);
-    a1.withdraw(100);
-
     a1.show();
-    a2.show();
 
     c1.show();
-    c2.show();
+    pc.show();
 
-    t1.show();
-    t2.show();
+    Account a3 = a1;
+    Account a4 = std::move(a1);
+
+    Account::showCount();
 
     return 0;
 }

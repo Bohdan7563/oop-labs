@@ -2,6 +2,7 @@
 #define TRANSACTION_H
 
 #include <string>
+#include <iostream>
 
 class Transaction {
 private:
@@ -11,6 +12,8 @@ private:
 public:
     Transaction();
     Transaction(double a, std::string t = "none");
+
+    ~Transaction();
 
     void show() const;
 };
