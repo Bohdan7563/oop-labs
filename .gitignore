@@ -1,2 +1,10 @@
-lab2/lab2
-*.out
+# Build
+build/
+cmake-build-*/
+*.o
+*.exe
+lab2/lab4
+
+# IDE
+.idea/
+.vscode/
