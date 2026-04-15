@@ -11,5 +11,5 @@ Transaction::~Transaction() {
 }
 
 void Transaction::show() const {
-    std::cout << type << " " << amount << std::endl;
+    std::cout << "Transaction: " << type << ", amount: " << amount << "\n";
 }

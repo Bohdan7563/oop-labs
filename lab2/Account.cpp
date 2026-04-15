@@ -18,7 +18,7 @@ Account::Account(std::string n, double b)
 Account::Account(const Account& other)
     : name(other.name), balance(other.balance), owner(other.owner) {
     count++;
-    std::cout << "Copy constructor\n";
+    std::cout << "Account copy constructor\n";
 }
 
 Account::Account(Account&& other) noexcept
@@ -27,12 +27,12 @@ Account::Account(Account&& other) noexcept
       owner(std::move(other.owner)) {
     other.balance = 0;
     count++;
-    std::cout << "Move constructor\n";
+    std::cout << "Account move constructor\n";
 }
 
 Account::~Account() {
     count--;
-    std::cout << "Deleted: " << name << std::endl;
+    std::cout << "Account deleted: " << name << "\n";
 }
 
 void Account::deposit(double amount) {
@@ -47,12 +47,11 @@ void Account::withdraw(double amount) {
 }
 
 void Account::show() const {
-    std::cout << name << " " << balance << " | owner: ";
-    owner.show();
+    std::cout << "Account: " << name << ", balance: " << balance << "\n";
 }
 
 void Account::showCount() {
-    std::cout << "Accounts: " << count << std::endl;
+    std::cout << "Total accounts: " << count << "\n";
 }
 
 Account Account::operator+(const Account& other) const {
@@ -64,7 +63,7 @@ Account Account::operator-() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Account& acc) {
-    os << acc.name << " " << acc.balance;
+    os << "Account: " << acc.name << ", balance: " << acc.balance;
     return os;
 }
 
