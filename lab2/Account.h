@@ -7,7 +7,7 @@ class Account {
 private:
     std::string name;
     double balance;
-    Client owner;
+    Client owner;  // композиція
 public:
     Account();
     Account(std::string n);

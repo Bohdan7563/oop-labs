@@ -8,11 +8,16 @@ protected:
 public:
     Person();
     Person(std::string n);
-    Person(const Person& other);
-    Person(Person&& other) noexcept;
-    Person& operator=(const Person& other);
-    Person& operator=(Person&& other) noexcept;
-    virtual ~Person();
-    [[nodiscard]]std::string getName() const;
+
+    virtual ~Person(); // ✅ віртуальний деструктор
+
+    // ❌ НЕ virtual → static binding
+    void info() const;
+
+    // ✅ virtual функції
     virtual void show() const;
+    virtual void printRole() const;
+
+    // ✅ pure virtual → робить клас абстрактним
+    virtual void work() const = 0;
 };

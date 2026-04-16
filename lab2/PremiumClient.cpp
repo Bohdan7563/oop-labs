@@ -15,3 +15,11 @@ void PremiumClient::show() const {
               << ", age: " << age
               << ", bonus: " << bonus << "\n";
 }
+
+void PremiumClient::printRole() const {
+    std::cout << "Role: PremiumClient\n";
+}
+
+void PremiumClient::work() const {
+    std::cout << name << " uses premium banking\n";
+}
