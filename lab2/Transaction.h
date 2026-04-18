@@ -1,14 +1,19 @@
 #pragma once
 #include <string>
-#include <iostream>
 
 class Transaction {
 private:
+    std::string accName;
     double amount;
     std::string type;
 public:
     Transaction();
-    Transaction(double a, std::string t = "none");
-    ~Transaction();
+    Transaction(std::string acc, double a, std::string t);
+    ~Transaction() = default;
+
     void show() const;
+
+    [[nodiscard]] std::string getAccName() const { return accName; }
+    [[nodiscard]] double getAmount() const { return amount; }
+    [[nodiscard]] std::string getType() const { return type; }
 };

@@ -1,53 +1,60 @@
 #include "Account.h"
+#include "Client.h"
+#include <stdexcept>
 #include <utility>
 
 int Account::count = 0;
 
-Account::Account() : Account("None", 0.0) {}
-
-Account::Account(std::string n)
-    : name(std::move(n)), balance(0.0), owner() {
+Account::Account() : name("None"), balance(0.0), owner(std::make_shared<Client>()) {
     count++;
 }
 
-Account::Account(std::string n, double b)
-    : name(std::move(n)), balance(b), owner() {
+Account::Account(std::string n)
+    : name(std::move(n)), balance(0.0), owner(std::make_shared<Client>()) {
+    count++;
+}
+
+Account::Account(std::string n, double b, std::shared_ptr<Person> p)
+    : name(std::move(n)), balance(b), owner(std::move(p)) {
     count++;
 }
 
 Account::Account(const Account& other)
     : name(other.name), balance(other.balance), owner(other.owner) {
     count++;
-    std::cout << "Account copy constructor\n";
 }
 
 Account::Account(Account&& other) noexcept
     : name(std::move(other.name)),
       balance(other.balance),
       owner(std::move(other.owner)) {
-    other.balance = 0;
+    other.balance = 0.0;
     count++;
-    std::cout << "Account move constructor\n";
 }
 
 Account::~Account() {
     count--;
-    std::cout << "Account deleted: " << name << "\n";
 }
 
 void Account::deposit(double amount) {
+    if (amount <= 0) {
+        throw std::invalid_argument("Deposit amount must be greater than zero.");
+    }
     balance += amount;
 }
 
 void Account::withdraw(double amount) {
-    if (amount <= balance)
-        balance -= amount;
-    else
-        std::cout << "Not enough money\n";
+    if (amount <= 0) {
+        throw std::invalid_argument("Withdraw amount must be greater than zero.");
+    }
+    if (amount > balance) {
+        throw std::runtime_error("Not enough money on balance.");
+    }
+    balance -= amount;
 }
 
 void Account::show() const {
-    std::cout << "Account: " << name << ", balance: " << balance << "\n";
+    std::cout << "Account: " << name << " | Balance: " << balance << "\n";
 }
 
 void Account::showCount() {
@@ -55,11 +62,11 @@ void Account::showCount() {
 }
 
 Account Account::operator+(const Account& other) const {
-    return {"Sum", balance + other.balance};
+    return {"Sum", balance + other.balance, owner};
 }
 
 Account Account::operator-() const {
-    return {name, -balance};
+    return {name, -balance, owner};
 }
 
 std::ostream& operator<<(std::ostream& os, const Account& acc) {

@@ -1,13 +1,10 @@
 #include "Client.h"
+#include <iostream>
 #include <utility>
 
 Client::Client() : Person("NoName"), age(18) {}
 
 Client::Client(std::string n, int a) : Person(std::move(n)), age(a) {}
-
-Client::~Client() {
-    std::cout << "Client deleted: " << name << "\n";
-}
 
 void Client::show() const {
     std::cout << "Client: " << name << ", age: " << age << "\n";

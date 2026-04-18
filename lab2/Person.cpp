@@ -1,13 +1,10 @@
 #include "Person.h"
+#include <iostream>
 #include <utility>
 
 Person::Person() : name("NoName") {}
 
 Person::Person(std::string n) : name(std::move(n)) {}
-
-Person::~Person() {
-    std::cout << "Person deleted: " << name << "\n";
-}
 
 void Person::info() const {
     std::cout << "Person info: " << name << "\n";

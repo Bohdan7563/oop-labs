@@ -1,15 +1,12 @@
 #include "Transaction.h"
+#include <iostream>
 #include <utility>
 
-Transaction::Transaction() : amount(0.0), type("none") {}
+Transaction::Transaction() : accName("None"), amount(0.0), type("none") {}
 
-Transaction::Transaction(double a, std::string t)
-    : amount(a), type(std::move(t)) {}
-
-Transaction::~Transaction() {
-    std::cout << "Transaction deleted\n";
-}
+Transaction::Transaction(std::string acc, double a, std::string t)
+    : accName(std::move(acc)), amount(a), type(std::move(t)) {}
 
 void Transaction::show() const {
-    std::cout << "Transaction: " << type << ", amount: " << amount << "\n";
+    std::cout << "Account: " << accName << " | Transaction: " << type << " | Amount: " << amount << "\n";
 }
